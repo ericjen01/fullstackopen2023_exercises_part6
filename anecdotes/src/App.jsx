@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { addVote } from './reducers/anecdoteReducer'
-import { addAnecdote } from './reducers/anecdoteReducer'
+import { addVote, addAnecdote } from './reducers/anecdoteReducer'
 
 const App = () => {
   const anecdotes = useSelector(state => state)
@@ -9,7 +8,10 @@ const App = () => {
   const vote = (id) => {
     dispatch(addVote(id)) // returns TYPE: 'VOTE', data: 'id' then dispatch
   }
- 
+
+  const compareVal = (a,b) => a.votes - b.votes
+  anecdotes.sort(compareVal).reverse()
+  
   const create = (e) => {
     e.preventDefault()
     const {
@@ -19,7 +21,6 @@ const App = () => {
     console.log('target: ', input)
 
     dispatch(addAnecdote(input.value))
-
   }
 
   return (
