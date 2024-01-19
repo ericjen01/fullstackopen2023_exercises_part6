@@ -19,7 +19,7 @@ const AnecdoteList = () => {
     )
   )
 
-  const vote = (id) =>{
+  const vote = (id) => {
     dispatch(addVote(id))
   }
 
