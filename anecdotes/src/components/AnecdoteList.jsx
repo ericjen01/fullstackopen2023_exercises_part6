@@ -1,16 +1,10 @@
 import { addVote } from '../reducers/anecdoteReducer'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { notifNewVote, muteNotif } from '../reducers/notifReducer'
 
 const AnecdoteList = () => {
 
-  const dispatch = useDispatch()  
-
-  /*const anecdotes = useSelector(state => state.anecdotes)
-  const anecdotes = useSelector( state => 
-    state.anecdotes.filter(a => a.content.includes(state.filter) )
-  )*/
-
+  const dispatch = useDispatch()
   const query = useSelector(state => state.query)
 
   const anecdotes = useSelector(
@@ -19,8 +13,13 @@ const AnecdoteList = () => {
     )
   )
 
-  const vote = (id) => {
+  const vote = (content, id) => {
     dispatch(addVote(id))
+    dispatch(notifNewVote(content))
+
+    setTimeout(() => {
+      dispatch(muteNotif())
+    }, 4000)
   }
 
   const compareVal = (a,b) => a.votes - b.votes
@@ -35,7 +34,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             {anecdote.votes} votes
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote.content, anecdote.id)}>vote</button>
           </div>
         </div>
       )}
