@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux'
-import { createAnecdote } from '../reducers/anecdoteReducer' 
+import { createAnec } from '../reducers/anecReducer' 
 import { notifNewAnec, muteNotif } from '../reducers/notifReducer'
 
-const AnecdoteForm = () => {
+const AnecForm = () => {
 
   const dispatch = useDispatch()
 
@@ -14,7 +14,7 @@ const AnecdoteForm = () => {
     console.log('e: ',e)
     console.log('target: ', input)
 
-    dispatch(createAnecdote(input.value))
+    dispatch(createAnec(input.value))
     dispatch(notifNewAnec(input.value))
 
     setTimeout(() => {
@@ -35,4 +35,4 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+export default AnecForm

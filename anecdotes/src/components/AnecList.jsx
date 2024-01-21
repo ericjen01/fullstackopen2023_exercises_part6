@@ -1,8 +1,15 @@
-import { addVote } from '../reducers/anecdoteReducer'
+import { addVote } from '../reducers/anecReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { notifNewVote, muteNotif } from '../reducers/notifReducer'
 
-const AnecdoteList = () => {
+const AnecList = () => {
+
+  const listStyle = {
+    border: '.5px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 10,  
+  }
 
   const dispatch = useDispatch()
   const query = useSelector(state => state.query)
@@ -23,18 +30,19 @@ const AnecdoteList = () => {
   }
 
   const compareVal = (a,b) => a.votes - b.votes
-  anecdotes.sort(compareVal).reverse()
+  const anecsForListing= [...anecdotes].sort(compareVal).reverse()
+  //use spread operator otherwise redux may crash
  
   return(
     <>
-      {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
-          <div>
-            {anecdote.content} 
+      {anecsForListing.map(anec =>
+        <div key={anec.id} style={listStyle}>
+          <div >
+            {anec.content} 
           </div>
           <div>
-            {anecdote.votes} votes
-            <button onClick={() => vote(anecdote.content, anecdote.id)}>vote</button>
+            {anec.votes} votes
+            <button onClick={() => vote(anec.content, anec.id)}>vote</button>
           </div>
         </div>
       )}
@@ -42,4 +50,4 @@ const AnecdoteList = () => {
   )
 }
 
-export default AnecdoteList
+export default AnecList

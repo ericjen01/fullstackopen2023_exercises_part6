@@ -4,15 +4,16 @@ const notifSlice = createSlice({
   name: 'notification',
   initialState: '',
   reducers: {
-    notifNewAnec(state, action){
+    notifNewAnec(_state, action){
       return ['New Anecdote Created:', "\"" + action.payload + "\""]
       //used array to create line breaks. createSlice doesn't work with '\n'
     },
-    notifNewVote(state, action){
+    notifNewVote(_state, action){
       return ['Voted For The Following Anecdote:', "\"" + action.payload + "\""]
       //used array to create line breaks. createSlice doesn't work with '\n'
     },
-    muteNotif(state, action){
+    // eslint-disable-next-line no-unused-vars
+    muteNotif(_state, _action){
       return null
     }
   }
