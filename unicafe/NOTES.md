@@ -362,6 +362,11 @@ npm test
     cd unicafe-redux   // go to the directory of cloned repository
     rm -rf .git
     npm install
+
+--- 6-b
+  Redux Toolkit
+  
+  npm install @reduxjs/toolkit
     
 
 
@@ -380,3 +385,6 @@ npm test
           // Add this line
           include: "**/*.tsx",
         })]
+
+Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+  

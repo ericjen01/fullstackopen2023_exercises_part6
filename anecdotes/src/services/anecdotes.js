@@ -19,4 +19,10 @@ export const createOne = async (string) => {
   return res
 }
 
+export const updateObj = async (obj) => {
+  const res = await axios.put(`${baseUrl}/${obj.id}`, obj)
+  console.log('res: ', res)
+  return res
+}
+
 export default {getAll, createOne}

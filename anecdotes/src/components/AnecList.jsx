@@ -12,16 +12,15 @@ const AnecList = () => {
   }
 
   const dispatch = useDispatch()
-  const query = useSelector(state => state.query)
 
-  const anecdotes = useSelector(
-    state => state.anecdotes.filter(
-      a => a.content.includes(query)
-    )
-  )
+  const anecdotes = useSelector(({ anecdotes, query}) => {
+    return query.length === 0 
+    ? anecdotes
+    : anecdotes.filter(a => a.content.toLowerCase().includes(query.toLowerCase()))
+  })
 
   const vote = (content, id) => {
-    dispatch(addVote(id))
+    dispatch(addVote(id, content))
     dispatch(notifNewVote(content))
 
     setTimeout(() => {
@@ -35,14 +34,14 @@ const AnecList = () => {
  
   return(
     <>
-      {anecsForListing.map(anec =>
-        <div key={anec.id} style={listStyle}>
+      {anecsForListing.map(a =>
+        <div key={a.id} style={listStyle}>
           <div >
-            {anec.content} 
+            {a.content} 
           </div>
           <div>
-            {anec.votes} votes
-            <button onClick={() => vote(anec.content, anec.id)}>vote</button>
+            {a.votes} votes
+            <button onClick={() => vote(a.content, a.id)}>vote</button>
           </div>
         </div>
       )}

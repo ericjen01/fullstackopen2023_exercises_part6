@@ -1,31 +1,9 @@
+import { updateObj } from '../services/anecdotes'
 import { createSlice } from '@reduxjs/toolkit'
 import { getAll, createOne } from '../services/anecdotes'
 
-const anecsAtStart = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
- 
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (anec) => {
-  return {
-    content: anec,
-    votes: 0,
-    id: getId()
-  }
-}
-
-// eslint-disable-next-line no-unused-vars
-const initialState = anecsAtStart.map(asObject)
-
 const anecSlice = createSlice({
   name: 'anecdote',
-  //initialState,
   initialState:[],
   reducers: {
 
@@ -38,21 +16,29 @@ const anecSlice = createSlice({
     },
 
     addVote(state, action){
+      const id = action.payload
       const targetObj = state.find(obj => {
-        return obj.id === action.payload
+        return obj.id === id
       })
-      const updatedObj = {... targetObj, votes: targetObj.votes +1}
-      return state.map( obj => obj.id === action.payload? updatedObj : obj)
+      console.log("targetObj.content", targetObj.content)
+      console.log("targetObj.votes", targetObj.votes)
+
+      targetObj.votes += 1
+      console.log("targetobj.votes after vote: ", targetObj.votes)
+      updateObj(targetObj)
     },
 
-    /*createAnec(state, action){
-      const newObj = {
-        content: action.payload,
-        id: getId(),
-        votes: 0
+    /*
+    addVote(state, action) {
+      const id = action.payload
+      const anecdote = state.find(n => n.id === id)
+      if (anecdote) {
+        anecdote.votes += 1
+        anecdoteService.updateItem(anecdote)
       }
-      return state.concat(newObj)
-    }*/
+    },
+    */
+
   }
 })
 
@@ -74,8 +60,8 @@ export const initAnecs = () => {
 
 export const createAnec = (string) => {
   return async (dispatchCommand) => {
-    const newAnec = await createOne(string)
-    dispatchCommand(pushAnec(newAnec))
+    const returnedObj = await createOne(string)
+    dispatchCommand(pushAnec(returnedObj))
   }
 }
 
