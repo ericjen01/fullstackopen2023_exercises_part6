@@ -20,11 +20,8 @@ const anecSlice = createSlice({
       const targetObj = state.find(obj => {
         return obj.id === id
       })
-      console.log("targetObj.content", targetObj.content)
-      console.log("targetObj.votes", targetObj.votes)
 
       targetObj.votes += 1
-      console.log("targetobj.votes after vote: ", targetObj.votes)
       updateObj(targetObj)
     },
 

@@ -13,22 +13,17 @@
     {
       "content": "The first 90% of the code accounts for the first 90% of the development time",
       "id": "69581",
-      "votes": 9
+      "votes": 11
     },
     {
       "content": "Any fool can write code that a computer can understand.",
       "id": "36975",
-      "votes": 1
+      "votes": 2
     },
     {
       "content": "Premature optimization is the root of all evil.",
       "id": "25170",
       "votes": 4
-    },
-    {
-      "id": "90365",
-      "content": "testing",
-      "votes": 2
     }
   ]
 }

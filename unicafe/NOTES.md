@@ -387,4 +387,8 @@ npm test
         })]
 
 Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
-  
+
+A non-serializable value was detected in an action, in the path....
+  returning the entire Axios response object from async thunks can cause error. That includes some of the Axios config setup. Don't do that
+
+  Instead, just return response.data

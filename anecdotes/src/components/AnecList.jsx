@@ -1,6 +1,6 @@
 import { addVote } from '../reducers/anecReducer'
 import { useSelector, useDispatch } from 'react-redux'
-import { notifNewVote, muteNotif } from '../reducers/notifReducer'
+import { showNotif } from '../reducers/notifReducer'
 
 const AnecList = () => {
 
@@ -19,13 +19,12 @@ const AnecList = () => {
     : anecdotes.filter(a => a.content.toLowerCase().includes(query.toLowerCase()))
   })
 
+  
   const vote = (content, id) => {
     dispatch(addVote(id, content))
-    dispatch(notifNewVote(content))
-
-    setTimeout(() => {
-      dispatch(muteNotif())
-    }, 4000)
+    dispatch(showNotif(
+      ['Voted For The Following Anecdote:', "\"" + content + "\""], 3
+    ))
   }
 
   const compareVal = (a,b) => a.votes - b.votes

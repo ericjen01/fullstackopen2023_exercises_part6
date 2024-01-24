@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/*
 const notifSlice = createSlice({
   name: 'notification',
   initialState: '',
@@ -21,5 +22,31 @@ const notifSlice = createSlice({
 
 export const {notifNewAnec, notifNewVote, muteNotif} = 
   notifSlice.actions
+
+*/
+const notifSlice = createSlice({
+  name: 'notification',
+  initialState: null,
+  reducers:{
+    createNotif(state, action) {
+      return action.payload
+    },
+
+    muteNotif(state, action) {
+      return null
+    }
+  }
+})
+
+export const {createNotif, muteNotif} = notifSlice.actions
+
+export const showNotif = (msg, secs) => (dispatchCommand) =>{
+  dispatchCommand(createNotif(msg))
+
+  setTimeout(() => {
+    dispatchCommand(muteNotif())
+  }, 1000*secs)
+}
+
 
 export default notifSlice.reducer

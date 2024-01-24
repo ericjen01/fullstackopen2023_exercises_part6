@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { createAnec } from '../reducers/anecReducer' 
-import { notifNewAnec, muteNotif } from '../reducers/notifReducer'
+import { showNotif } from '../reducers/notifReducer'
 
 const AnecForm = () => {
 
@@ -11,15 +11,11 @@ const AnecForm = () => {
     const {
       target:{input}
     } = e
-    console.log('e: ',e)
-    console.log('target: ', input)
 
     dispatch(createAnec(input.value))
-    dispatch(notifNewAnec(input.value))
-
-    setTimeout(() => {
-      dispatch(muteNotif())
-    }, 4000)
+    dispatch(showNotif(
+      ['New Anecdote Created:', "\"" + input.value + "\""], 3
+    ))
   }
 
   return(

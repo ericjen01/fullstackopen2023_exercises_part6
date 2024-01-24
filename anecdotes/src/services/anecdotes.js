@@ -16,12 +16,11 @@ export const createOne = async (string) => {
     votes:0
   }
   const res = await axios.post(baseUrl, anecToAdd)
-  return res
+  return res.data
 }
 
 export const updateObj = async (obj) => {
   const res = await axios.put(`${baseUrl}/${obj.id}`, obj)
-  console.log('res: ', res)
   return res
 }
 
